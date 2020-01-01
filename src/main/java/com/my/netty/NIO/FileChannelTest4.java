@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
  * @author 杨宇帆
  * @create 2020-01-01
  */
-public class FileChannel04 {
+public class FileChannelTest4 {
     public static void main(String[] args) throws Exception{
         FileInputStream fileInputStream = new FileInputStream("src/main/test.png");
         FileChannel inputChannel = fileInputStream.getChannel();
