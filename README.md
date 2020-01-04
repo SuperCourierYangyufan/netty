@@ -34,3 +34,11 @@
 	1. 通道异步，且可同时进行读写操作，代码详情看Nio模块
 	2. FileChannel 文件  DatagramChannel udp  ServiceSocketChannel 和 SocketChannel 用于TCP
 	3. FileChannel(已自我为基准) read 从通道读取数据放入缓存区 ，write 将缓存区的数据写入通道中
+7. selector选择器
+    1.selector中含有多个SelectionKey ,选择器轮询key获得Channel
+    2. select(long timeout) 带参为非阻塞，不带参的为阻塞方法
+    3. selector过程
+        1. 当客户端连接时，会通过ServerSocketChannel得到SocketChannel
+        2. 将SocketChannel注册到selector上
+        3. 注册后返回一个SelectionKey,会和这个selector关联
+        4. Selector就可以监听

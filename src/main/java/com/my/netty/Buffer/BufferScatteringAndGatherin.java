@@ -1,4 +1,4 @@
-package com.my.netty.NIO;
+package com.my.netty.Buffer;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;

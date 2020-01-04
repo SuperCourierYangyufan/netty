@@ -1,4 +1,4 @@
-package com.my.netty.NIO;
+package com.my.netty.Buffer;
 
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
