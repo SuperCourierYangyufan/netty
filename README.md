@@ -42,3 +42,23 @@
         2. 将SocketChannel注册到selector上
         3. 注册后返回一个SelectionKey,会和这个selector关联
         4. Selector就可以监听
+8. Reactor模型
+    1. 单Reactor模型，一个Reactor进行连接，事件分发，并且还是同一个线程进行事件处理
+    2. 单Reactor多线程模型，一个Reactor进行连接，事件分发，使用线程池分发线程进行事件处理
+    3. 主从Reactor多线程模型，一个主Reactor进行连接，下面的多个子Reactor进行事件分发，使用线程池分发线程进行事件处理
+9. Netty模型
+    1. netty抽象出两组线程池 BoosGroup(专门复制客户端的连接) WorkGroup(复制网络的读写)
+    2. BoosGroup,WorkGroup 都是NioEventLoopGroup
+    3. NioEventLoopGroup相对一个时间循环组,每个组含有多个事件循环,每一个循环是NioEventLoop
+    4. NioEventLoop表示一个不断循环的执行任务的线程,每个NioEventLoop都有一个select,用于监听绑定其上的socket通讯
+    5. NioEventLoopGroup可以有多个线程,即可以含有多个NioEventLoop
+    6. 每个BoosGroup(NioEventLoopGroup)执行步骤有三步
+        1. 轮询accept事件 
+        2. 处理accept事件,与clint建立连接，生成NioSockChannel,并将其注册到WorkGroup下某个NioEventLoopGroup的select上去
+        3. 处理任务队列.即runAllTasks
+    7. 每个WorkGroup(NioEventLoopGroup)循环执行步骤
+        1. 轮询Read,write事件
+        2. 处理I/O事件(Read,write事件)，即在对应NioSockChannel处理
+        3. 处理任务队列.即runAllTasks
+    8. 每个NioEventLoopGroup处理业务时，会使用到pipeline(管道),pipeline包含Channel(通道)，和维护多个处理器
+    
