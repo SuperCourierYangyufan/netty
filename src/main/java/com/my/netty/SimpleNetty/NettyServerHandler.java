@@ -6,6 +6,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * @author 杨宇帆
@@ -23,6 +25,20 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = (ByteBuf)msg;
         System.out.println("client send msg is "+buf.toString(CharsetUtil.UTF_8));
         System.out.println("client address is "+ctx.channel().remoteAddress());
+
+        //用户自定义普通任务,该任务会加入TaskQueue
+        ctx.channel().eventLoop().execute(()->{
+            try {
+                Thread.sleep(10 * 1000);
+                System.out.println("this is sleep 10s msg");
+            }catch (Exception e){
+
+            }
+        });
+
+        ctx.channel().eventLoop().schedule(()->{
+            System.out.println("this is sleep 5 msg");
+        }, 5, TimeUnit.SECONDS);
     }
 
     //数据读取完毕回送

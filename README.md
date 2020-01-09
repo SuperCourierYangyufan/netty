@@ -61,4 +61,7 @@
         2. 处理I/O事件(Read,write事件)，即在对应NioSockChannel处理
         3. 处理任务队列.即runAllTasks
     8. 每个NioEventLoopGroup处理业务时，会使用到pipeline(管道),pipeline包含Channel(通道)，和维护多个处理器
-    
+10 netty
+    1. ctx.channel().eventLoop().execute(()->{});将任务放入TaskQueue,同一个线程下,一个任务结束后才执行下一个任务
+    2. ctx.channel().eventLoop().schedule() 提交定时任务到ScheduleTaskQueue
+    3.     
