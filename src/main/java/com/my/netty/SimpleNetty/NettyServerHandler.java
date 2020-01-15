@@ -55,4 +55,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         //关闭通道
         ctx.channel().close();
     }
+
+    //通道就绪后
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+    }
 }

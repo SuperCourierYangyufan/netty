@@ -64,4 +64,17 @@
 10 netty
     1. ctx.channel().eventLoop().execute(()->{});将任务放入TaskQueue,同一个线程下,一个任务结束后才执行下一个任务
     2. ctx.channel().eventLoop().schedule() 提交定时任务到ScheduleTaskQueue
-    3.     
+    3. serverHandler重要事件方法
+        1. channelRead 读取数据事件，读取客户端的消息
+        2. channelReadComplete     数据读取完毕回送
+        3. exceptionCaught 处理异常
+        4. channelActive 通道就绪后
+    4. ChannelPipeline是一个Handler的集合,他复制处理和拦截出站和入站事件和操作
+    5. 每个Channel有且仅有一个ChannelPipeline,ChannelPipeline中包含一个双向链表,由ChannelHandlerContext组成,每个
+    ChannelHandlerContext包含一个ChannelHandler
+        1. 入站事件会从链表头放入到最后一个入站的handel
+        2. 出站事件会从链表尾放入到最前一个出站的handel
+        3. 两种类型handler互不干扰
+    6. Unpooled操作缓冲区的类
+        1. 在netty中的buffer不需要进行flip进行反转,底层维护了readIndex 和 writeIndex
+         
